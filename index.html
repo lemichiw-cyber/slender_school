@@ -119,22 +119,7 @@ canvas{display:block;width:100vw;height:100vh;}
   font-family:var(--font-hand2);
   font-weight:700;
 }
-.history-section{max-width:500px;margin:0 auto 14px;text-align:left;}
-.history-section h3{
-  color:var(--ink);
-  font-family:var(--font-hand);
-  font-size:14px;
-  margin-bottom:6px;
-  text-align:center;
-}
-.history-entry{
-  display:flex;justify-content:space-between;padding:3px 8px;font-size:12px;
-  color:var(--ink-faded);border-bottom:1px solid rgba(120,100,70,.15);
-  font-family:var(--font-hand2);font-weight:700;
-}
-.history-entry.win{color:var(--safe);}
-.history-entry.lose{color:var(--blood);}
-.hist-label{color:var(--ink-faded);font-size:10px;font-family:var(--font-mono);}
+
 
 /* ── BUTTONS (general) ── */
 .btn{
@@ -527,10 +512,6 @@ canvas{display:block;width:100vw;height:100vh;}
     <p><span>🚿 Safe Room:</span> The bathroom — he cannot enter</p>
   </div>
   <p class="note">"no eyes... yet it sees everything"</p>
-  <div class="history-section" id="historySection" style="display:none;">
-    <h3>PAST ATTEMPTS</h3>
-    <div id="gameHistory"></div>
-  </div>
   <p class="best-time" id="bestTimeDisplay"></p>
   <button class="btn" id="startFromInstructions">ENTER</button>
 </div>
@@ -2026,23 +2007,10 @@ function quitToMenu() {
   const data=Store.load();
   fadeTransition(()=>{
     showScreen('instructions');
-    renderHistory(data);
     document.getElementById('bestTimeDisplay').textContent=data.gamesPlayed>0?'Best: '+Store.formatTime(data.bestTime)+' · Played: '+data.gamesPlayed:'';
   });
 }
 function toggleSound(){Sfx.enabled=!Sfx.enabled;document.getElementById('soundLabel').textContent=Sfx.enabled?'SOUND ON':'SOUND OFF';if(!Sfx.enabled)Sfx.muteAll();else Sfx.unmuteAll();}
-
-function renderHistory(data) {
-  const sec = document.getElementById('historySection');
-  const hist = document.getElementById('gameHistory');
-  if (!data.history||!data.history.length) { sec.style.display='none'; return; }
-  sec.style.display='block';
-  let html='<div style="display:flex;justify-content:space-between;font-size:10px;color:#555;margin-bottom:2px;"><span class="hist-label">RESULT</span><span class="hist-label">TIME</span><span class="hist-label">NB</span><span class="hist-label">DEATHS</span></div>';
-  data.history.forEach(h=>{
-    html+='<div class="history-entry '+(h.won?'win':'lose')+'"><span>'+(h.won?'WIN':'LOSE')+'</span><span>'+Store.formatTime(h.time)+'</span><span>'+h.notebooks+'/'+TOTAL_NOTEBOOKS+'</span><span>'+h.deaths+'</span></div>';
-  });
-  hist.innerHTML=html;
-}
 
 // ======================================================================
 // VISIBILITY CHANGE — auto-pause
@@ -2332,7 +2300,6 @@ game.allQuestions=[]; for(let i=0;i<TOTAL_NOTEBOOKS;i++) game.allQuestions.push(
 nbMeshes.forEach((n,i)=>{n.questions=game.allQuestions[i];});
 updateHUD();
 const initData=Store.load();
-renderHistory(initData);
 if(initData.gamesPlayed>0) document.getElementById('bestTimeDisplay').textContent='Best: '+Store.formatTime(initData.bestTime)+' · Played: '+initData.gamesPlayed;
 animate();
 console.log('Slender School v5 loaded — Creepy Notes aesthetic');
