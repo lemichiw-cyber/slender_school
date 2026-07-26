@@ -1349,93 +1349,93 @@ function createSlendermanModel() {
   const group = new THREE.Group();
 
   const darkMat = new THREE.MeshStandardMaterial({
-    color: 0x111111,
-    roughness: 0.95,
-    metalness: 0.0,
-    emissive: 0x0a0a0a,
-    emissiveIntensity: 0.3,
+    color: 0x2a2a2a,
+    roughness: 0.85,
+    metalness: 0.1,
+    emissive: 0x440000,
+    emissiveIntensity: 0.5,
     transparent: true,
-    opacity: 0.92
+    opacity: 0.95
   });
   const accentMat = new THREE.MeshStandardMaterial({
-    color: 0x222222,
-    roughness: 0.9,
-    metalness: 0.0,
-    emissive: 0x111111,
-    emissiveIntensity: 0.2,
+    color: 0x3a3a3a,
+    roughness: 0.8,
+    metalness: 0.1,
+    emissive: 0x220000,
+    emissiveIntensity: 0.4,
     transparent: true,
-    opacity: 0.85
+    opacity: 0.9
   });
 
-  // Torso
-  const torsoGeo = new THREE.CylinderGeometry(0.08, 0.12, 1.2, 8);
+  // Torso (main body column)
+  const torsoGeo = new THREE.CylinderGeometry(0.1, 0.14, 1.5, 8);
   const torso = new THREE.Mesh(torsoGeo, darkMat);
   torso.position.y = 1.0;
   torso.castShadow = true;
   group.add(torso);
 
-  // Torso accent rings
-  for (let i = 0; i < 3; i++) {
-    const ringGeo = new THREE.TorusGeometry(0.14, 0.008, 6, 12);
+  // Accent rings along torso
+  for (let i = 0; i < 4; i++) {
+    const ringGeo = new THREE.TorusGeometry(0.16, 0.01, 6, 16);
     const ring = new THREE.Mesh(ringGeo, accentMat);
     ring.rotation.x = Math.PI / 2;
-    ring.position.y = 0.5 + i * 0.35;
+    ring.position.y = 0.4 + i * 0.3;
     group.add(ring);
   }
 
-  // Neck
-  const neckGeo = new THREE.CylinderGeometry(0.04, 0.06, 0.15, 6);
+  // Neck (thin connector)
+  const neckGeo = new THREE.CylinderGeometry(0.05, 0.07, 0.12, 6);
   const neck = new THREE.Mesh(neckGeo, darkMat);
-  neck.position.y = 1.6;
+  neck.position.y = 1.75;
   group.add(neck);
 
-  // Head (elongated sphere)
-  const headGeo = new THREE.SphereGeometry(0.25, 12, 8, 0, Math.PI * 2, 0, Math.PI * 0.5);
+  // Head (elongated, slightly wider than neck)
+  const headGeo = new THREE.SphereGeometry(0.28, 16, 10, 0, Math.PI * 2, 0, Math.PI * 0.5);
   const head = new THREE.Mesh(headGeo, darkMat);
-  head.position.y = 1.9;
-  head.scale.set(1, 1.4, 1);
+  head.position.y = 2.05;
+  head.scale.set(1, 1.5, 1);
   head.castShadow = true;
   group.add(head);
 
-  // Arms (thin, slightly spread)
-  const armGeo = new THREE.CylinderGeometry(0.03, 0.03, 1.0, 6);
+  // Tentacle arms (long, thin, reach downward and outward)
+  const tentGeo = new THREE.CylinderGeometry(0.008, 0.02, 1.3, 4);
+  const tentL = new THREE.Mesh(tentGeo, darkMat);
+  tentL.position.set(-0.22, 0.5, 0.05);
+  tentL.rotation.z = -0.35;
+  tentL.rotation.x = 0.15;
+  group.add(tentL);
+  const tentR = new THREE.Mesh(tentGeo, darkMat);
+  tentR.position.set(0.22, 0.5, 0.05);
+  tentR.rotation.z = 0.35;
+  tentR.rotation.x = -0.15;
+  group.add(tentR);
+
+  // Primary arms (shorter, slightly thicker)
+  const armGeo = new THREE.CylinderGeometry(0.035, 0.035, 0.9, 6);
   const armL = new THREE.Mesh(armGeo, darkMat);
-  armL.position.set(-0.16, 0.85, 0);
-  armL.rotation.z = 0.15;
-  armL.rotation.x = 0.05;
+  armL.position.set(-0.18, 0.85, 0);
+  armL.rotation.z = 0.12;
   armL.castShadow = true;
   group.add(armL);
   const armR = new THREE.Mesh(armGeo, darkMat);
-  armR.position.set(0.16, 0.85, 0);
-  armR.rotation.z = -0.15;
-  armR.rotation.x = -0.05;
+  armR.position.set(0.18, 0.85, 0);
+  armR.rotation.z = -0.12;
   armR.castShadow = true;
   group.add(armR);
 
-  // Tentacle arms (long, thin)
-  const tentGeo = new THREE.CylinderGeometry(0.01, 0.025, 1.2, 4);
-  const tentL = new THREE.Mesh(tentGeo, darkMat);
-  tentL.position.set(-0.22, 0.6, 0);
-  tentL.rotation.z = -0.3;
-  group.add(tentL);
-  const tentR = new THREE.Mesh(tentGeo, darkMat);
-  tentR.position.set(0.22, 0.6, 0);
-  tentR.rotation.z = 0.3;
-  group.add(tentR);
-
-  // Legs
-  const legGeo = new THREE.CylinderGeometry(0.04, 0.06, 0.8, 6);
+  // Legs (thin pillars)
+  const legGeo = new THREE.CylinderGeometry(0.04, 0.055, 0.7, 6);
   const legL = new THREE.Mesh(legGeo, darkMat);
-  legL.position.set(-0.07, 0.0, 0);
+  legL.position.set(-0.07, -0.05, 0);
   legL.castShadow = true;
   group.add(legL);
   const legR = new THREE.Mesh(legGeo, darkMat);
-  legR.position.set(0.07, 0.0, 0);
+  legR.position.set(0.07, -0.05, 0);
   legR.castShadow = true;
   group.add(legR);
 
-  // Feet
-  const footGeo = new THREE.BoxGeometry(0.15, 0.08, 0.25);
+  // Feet (slightly wider base)
+  const footGeo = new THREE.BoxGeometry(0.16, 0.06, 0.28);
   const footL = new THREE.Mesh(footGeo, accentMat);
   footL.position.set(-0.07, -0.38, 0.02);
   group.add(footL);
@@ -1446,7 +1446,6 @@ function createSlendermanModel() {
   return group;
 }
 // ============================================================
-
 const slenderGroup = createSlendermanModel();
 // POWER-UPS — IIFE
 // ======================================================================
@@ -2299,7 +2298,7 @@ function animate() {
     camera.lookAt(game.px+Math.sin(yaw)*Math.cos(pitch),1.4+Math.sin(pitch),game.pz+Math.cos(yaw)*Math.cos(pitch));
 
     // Slender
-    slenderGroup.position.set(game.baldiX, 0, game.baldiZ);
+    slenderGroup.position.set(game.baldiX, 0.38, game.baldiZ);
     slenderGroup.rotation.y=Math.atan2(game.px-game.baldiX,game.pz-game.baldiZ);
 
     // Notebooks
