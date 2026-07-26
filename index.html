@@ -1349,28 +1349,28 @@ function createSlendermanModel() {
   const group = new THREE.Group();
 
   const darkMat = new THREE.MeshStandardMaterial({
-    color: 0x2a2a2a,
-    roughness: 0.85,
-    metalness: 0.1,
-    emissive: 0x440000,
-    emissiveIntensity: 0.5,
-    transparent: true,
-    opacity: 0.95
+    color: 0x1a1a1a,
+    roughness: 1.0,
+    metalness: 0.0,
+    emissive: 0x550000,
+    emissiveIntensity: 2.5,
+    transparent: false,
+    opacity: 1.0
   });
   const accentMat = new THREE.MeshStandardMaterial({
-    color: 0x3a3a3a,
-    roughness: 0.8,
-    metalness: 0.1,
-    emissive: 0x220000,
-    emissiveIntensity: 0.4,
-    transparent: true,
-    opacity: 0.9
+    color: 0x222222,
+    roughness: 1.0,
+    metalness: 0.0,
+    emissive: 0x330000,
+    emissiveIntensity: 2.0,
+    transparent: false,
+    opacity: 1.0
   });
 
   // Torso (main body column)
   const torsoGeo = new THREE.CylinderGeometry(0.1, 0.14, 1.5, 8);
   const torso = new THREE.Mesh(torsoGeo, darkMat);
-  torso.position.y = 1.0;
+  torso.position.y = 1.05;
   torso.castShadow = true;
   group.add(torso);
 
@@ -1447,6 +1447,8 @@ function createSlendermanModel() {
 }
 // ============================================================
 const slenderGroup = createSlendermanModel();
+scene.add(slenderGroup);
+
 // POWER-UPS — IIFE
 // ======================================================================
 const PowerUps = (function() {
