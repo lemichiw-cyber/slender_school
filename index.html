@@ -939,13 +939,19 @@ const QBank = (function() {
     return a;
   }
 
+  function pickCat(cats) {
+    if (!cats.includes('verbToBe')) return cats[Math.floor(Math.random() * cats.length)];
+    const others = cats.filter(c => c !== 'verbToBe');
+    return Math.random() < 0.5 ? 'verbToBe' : others[Math.floor(Math.random() * others.length)];
+  }
+
   function generate(nbIndex, forcedDiff) {
     const baseDiff = forcedDiff || getDifficulty(nbIndex);
     const cats = getCategories(baseDiff);
     const questions = [];
     const used = {};
     for (let i = 0; i < 3; i++) {
-      const cat = cats[Math.floor(Math.random() * cats.length)];
+      const cat = pickCat(cats);
       const pool = categories[cat][baseDiff];
       if (!used[cat]) used[cat] = new Set();
       let avail = [];
