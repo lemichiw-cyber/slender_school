@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Plataforma educativa Rosmery — Aprendamos juntos con nuestros amigos gatitos.">
+  <meta name="theme-color" content="#f0d9e8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Rosmery">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <title>Rosmery · Plataforma Educativa</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { transition: background .35s ease, color .35s ease, border-color .35s ease, box-shadow .35s ease; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    :root {
+      --pastel-pink: #f8d7e0;
+      --pastel-lavender: #e8d5f5;
+      --pastel-mint: #d5f5e3;
+      --pastel-blue: #d5e8f5;
+      --pastel-peach: #f5e0d5;
+      --pastel-yellow: #f5f0d5;
+      --primary: #e8a0c0;
+      --primary-dark: #d48aae;
+      --primary-light: #fce4ef;
+      --gray-50: #faf5f8;
+      --gray-100: #f5eef3;
+      --gray-200: #e8dde5;
+      --gray-300: #d0c5cd;
+      --gray-400: #a89aa5;
+      --gray-500: #887a85;
+      --gray-600: #6a5c6a;
+      --gray-700: #5a4a5a;
+      --gray-800: #3a2e3a;
+      --gray-900: #2a1e2a;
+      --red: #e88090;
+      --green: #80c8a0;
+      --radius: 14px;
+      --shadow: 0 4px 20px rgba(200, 150, 180, .12);
+      --shadow-lg: 0 8px 32px rgba(200, 150, 180, .18);
+      --bg: #fdf6f9;
+      --bg-card: #fff;
+      --bg-header: linear-gradient(135deg, #fce4ef, #f0d9e8);
+      --bg-footer: linear-gradient(135deg, #f0d9e8, #fce4ef);
+      --text: #5a4a5a;
+      --border: var(--pastel-pink);
+    }
+    [data-theme="dark"] {
+      --pastel-pink: #5a3a4a;
+      --pastel-lavender: #4a3a5a;
+      --pastel-mint: #3a4a4a;
+      --pastel-blue: #3a4a5a;
+      --pastel-peach: #5a4a3a;
+      --pastel-yellow: #4a4a3a;
+      --primary: #e8a0c0;
+      --primary-dark: #d48aae;
+      --primary-light: #3a2a3a;
+      --gray-50: #1a121a;
+      --gray-100: #2a1e2a;
+      --gray-200: #3a2e3a;
+      --gray-300: #5a4a5a;
+      --gray-400: #887a85;
+      --gray-500: #a89aa5;
+      --gray-600: #c0b0c0;
+      --gray-700: #d0c5cd;
+      --gray-800: #e8dde5;
+      --gray-900: #f5eef3;
+      --red: #f090a0;
+      --green: #90d0b0;
+      --shadow: 0 4px 20px rgba(0, 0, 0, .25);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, .35);
+      --bg: #1a121a;
+      --bg-card: #2a1e2a;
+      --bg-header: linear-gradient(135deg, #2a1a2a, #3a2a3a);
+      --bg-footer: linear-gradient(135deg, #2a1a2a, #3a2a3a);
+      --text: #d0c5cd;
+      --border: #4a3a4a;
+    }
+    a { color: var(--primary-dark); text-decoration: none; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+
+    /* HEADER */
+    .app-header {
+      background: var(--bg-header);
+      border-bottom: 2px solid var(--border);
+      padding: .65rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .app-header .container { display: flex; align-items: center; gap: .75rem; }
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+    .logo-link:hover { opacity: .8; }
+
+    /* HERO */
+    .hero-section {
+      background: linear-gradient(135deg, #f0d9e8, #fce4ef, #e8d5f5);
+      padding: 3rem 0 2.5rem;
+      text-align: center;
+      border-bottom: 2px solid var(--pastel-lavender);
+    }
+    [data-theme="dark"] .hero-section {
+      background: linear-gradient(135deg, #2a1a2a, #3a2a3a, #2a1e3a);
+    }
+    .hero-section h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--text);
+      margin-bottom: .5rem;
+    }
+    .hero-section p {
+      color: var(--gray-500);
+      max-width: 500px;
+      margin: 0 auto 1.2rem;
+      font-size: .95rem;
+    }
+    .kitty-hero {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: .75rem;
+      animation: bounce 2s infinite ease-in-out;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* CARDS */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: .75rem;
+      padding: 1.5rem 0;
+    }
+    .app-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem .75rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+      box-shadow: var(--shadow);
+    }
+    .app-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+    .app-card .icon {
+      font-size: 2rem;
+      margin-bottom: .4rem;
+    }
+    .app-card h4 {
+      font-size: .85rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .app-card p {
+      font-size: .72rem;
+      color: var(--gray-400);
+      margin-top: .2rem;
+    }
+
+    /* CAT DECORATIONS */
+    .cat-divider {
+      text-align: center;
+      font-size: 1.2rem;
+      padding: .3rem 0;
+      opacity: .5;
+      letter-spacing: .5rem;
+    }
+
+    /* MISC */
+    .hidden { display: none !important; }
+    .text-center { text-align: center; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .55rem 1.2rem;
+      border-radius: 50px;
+      border: none;
+      font: inherit;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: scale(1.02);
+    }
+    .btn-outline-pastel {
+      background: transparent;
+      border: 2px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline-pastel:hover {
+      background: var(--pastel-pink);
+      border-color: var(--primary);
+    }
+
+    .btn-theme-toggle {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: .3rem;
+      border-radius: 50%;
+      line-height: 1;
+      transition: .2s;
+      margin-left: auto;
+    }
+    .btn-theme-toggle:hover {
+      background: var(--pastel-pink);
+      transform: scale(1.1);
+    }
+
+    footer {
+      background: var(--bg-footer);
+      padding: 1.5rem 0;
+      text-align: center;
+      border-top: 2px solid var(--border);
+      margin-top: 2rem;
+      font-size: .82rem;
+      color: var(--gray-500);
+    }
+
+    @media (max-width: 480px) {
+      .apps-grid { grid-template-columns: repeat(2, 1fr); gap: .5rem; }
+      .app-card { padding: 1rem .5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="app-header">
+    <div class="container">
+      <a href="#" class="logo-link" onclick="mostrarApp(null)">
+        <svg width="32" height="32" viewBox="0 0 32 32">
+          <rect width="32" height="32" rx="8" fill="#e8a0c0"/>
+          <text x="16" y="21" text-anchor="middle" font-family="system-ui" font-size="14" font-weight="bold" fill="#fff">R</text>
+        </svg>
+        <span>Rosmery</span>
+      </a>
+      <button class="btn-theme-toggle" onclick="toggleTheme()" title="Cambiar tema">🌙</button>
+    </div>
+  </header>
+
+  <!-- ===== TOAST ===== -->
+  <div class="toast" id="toast" style="position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--gray-800);color:var(--gray-50);padding:.6rem 1.4rem;border-radius:50px;font-size:.85rem;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;"></div>
+
+  <!-- ===== HERO / INICIO ===== -->
+  <section id="app-inicio">
+    <div class="hero-section">
+      <div class="container">
+        <span class="kitty-heart">🐱</span>
+        <h1>¡Bienvenido a Rosmery!</h1>
+        <p>Un espacio suavecito y pastelito para aprender juntos, rodeados de gatitos.</p>
+        <button class="btn btn-primary" onclick="mostrarToast('🐱 ¡Miau! Bienvenida, Rosmery 💕')">Empezar</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="cat-divider">🐈 🐈 🐈</div>
+      <div class="apps-grid">
+        <div class="app-card" onclick="mostrarToast('📚 Aquí van las tareas')"><div class="icon">📚</div><h4>Tareas</h4><p>Tus trabajitos</p></div>
+        <div class="app-card" onclick="mostrarToast('📸 Aquí van las fotos')"><div class="icon">📸</div><h4>Fotos</h4><p>Momentitos</p></div>
+        <div class="app-card" onclick="mostrarToast('🎵 Aquí va la música')"><div class="icon">🎵</div><h4>Música</h4><p>Melodías</p></div>
+        <div class="app-card" onclick="mostrarToast('🎨 Aquí van los dibujos')"><div class="icon">🎨</div><h4>Arte</h4><p>Creatividad</p></div>
+        <div class="app-card" onclick="mostrarToast('📖 Aquí van los cuentos')"><div class="icon">📖</div><h4>Cuentos</h4><p>Historias</p></div>
+        <div class="app-card" onclick="mostrarToast('🐱 ¡Gatitos!')"><div class="icon">🐱</div><h4>Gatitos</h4><p>Puri puri</p></div>
+      </div>
+      <div class="cat-divider">🐾 🐾 🐾</div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <p>&#x1F431; Hecho con amor y mucha crema pastelera &mdash; Rosmery &#x1F490;</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      function $(id) { return document.getElementById(id); }
+
+      var toastEl = $('toast');
+      var toastTimeout;
+      function mostrarToast(msg, tipo) {
+        clearTimeout(toastTimeout);
+        toastEl.textContent = msg;
+        toastEl.style.opacity = '1';
+        toastEl.style.background = tipo === 'error' ? 'var(--red)' : 'var(--gray-800)';
+        toastTimeout = setTimeout(function () { toastEl.style.opacity = '0'; }, 3000);
+      }
+
+      window.mostrarToast = mostrarToast;
+
+      window.mostrarApp = function (app) {
+        // Simple app toggle (only inicio for now)
+      };
+
+      // Cat paw prints on click
+      document.addEventListener('click', function () {
+        // Just a fun effect placeholder
+      });
+
+      // ===== THEME TOGGLE =====
+      var currentTheme = localStorage.getItem('rosmeryTheme') || 'light';
+
+      function toggleTheme() {
+        currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        aplicarTheme(currentTheme);
+      }
+      window.toggleTheme = toggleTheme;
+
+      function aplicarTheme(theme) {
+        currentTheme = theme;
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('rosmeryTheme', theme);
+        var icon = theme === 'dark' ? '☀️' : '🌙';
+        var btns = document.querySelectorAll('.btn-theme-toggle');
+        for (var i = 0; i < btns.length; i++) btns[i].textContent = icon;
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.content = theme === 'dark' ? '#1a121a' : '#f0d9e8';
+      }
+
+      aplicarTheme(currentTheme);
+
+      // Welcome toast
+      setTimeout(function () {
+        mostrarToast('🐱 ¡Bienvenida! Disfruta tu espacio 💕');
+      }, 500);
+    })();
+  </script>
+</body>
+</html>

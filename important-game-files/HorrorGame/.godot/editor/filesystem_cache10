@@ -1,0 +1,10 @@
+78098b89c88a74ebe8c20117b8754620
+::res://::1783596355
+Cuaderno.gd::GDScript::4834470707029776872::1783595840::0::1::::<>Area3D<><>0<>0<><>::
+LuzParpadeante.gd::GDScript::6366579398766537481::1783595845::0::1::::<>OmniLight3D<><>0<>0<><>::
+Main.gd::GDScript::1204888503810413309::1783595852::0::1::::<>Node3D<><>0<>0<><>::
+Main.tscn::PackedScene::8831825932385240555::1783596242::0::1::::<><><>0<>0<><>::res://Main.gd<>res://Player.gd<>res://Profesor.gd<>res://Cuaderno.gd<>res://UI.gd
+Player.gd::GDScript::3294465068740666172::1783595839::0::1::::<>CharacterBody3D<><>0<>0<><>::
+Profesor.gd::GDScript::3112574172765792136::1783595844::0::1::::<>CharacterBody3D<><>0<>0<><>::
+README.md::TextFile::-1::1783595856::0::1::::<><><>0<>0<><>::
+UI.gd::GDScript::7217596821813511295::1783595842::0::1::::<>CanvasLayer<><>0<>0<><>::
